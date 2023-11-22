@@ -12,11 +12,39 @@ public class Canvas {
 	private ArrayList<Block> solid_blocks = new ArrayList<Block>();
 	private Tile unsolid_tile;
 	
+	private int next_block = 1;
+	
 	public Canvas(int x, int y) {
 		this.x = x;
 		this.y = y;
-		unsolid_tile = new O_Tile(x,y,block_size);
+		unsolid_tile = new Z_Tile(x,y,block_size);
 		tiles.add(unsolid_tile);
+	}
+	
+	private Tile NewBlock() {
+		int last_block = next_block;
+		next_block = (int)(Math.random() * 8);
+		
+		if(next_block == last_block) return NewBlock();
+		
+		switch(next_block) {
+		case 1:
+			return new I_Tile(x,y,block_size);
+		case 2:
+			return new O_Tile(x,y,block_size);
+		case 3:
+			return new J_Tile(x,y,block_size);
+		case 4:
+			return new L_Tile(x,y,block_size);
+		case 5:
+			return new S_Tile(x,y,block_size);
+		case 6:
+			return new Z_Tile(x,y,block_size);
+		case 7:
+			return new T_Tile(x,y,block_size);
+		default:
+			return new T_Tile(x,y,block_size);
+		}
 	}
 	
 	public void tick(int max_timer) {
@@ -36,7 +64,7 @@ public class Canvas {
 				solid_blocks.add(unsolid_tile.getBlocks()[i]);
 			}
 			
-			unsolid_tile = new O_Tile(x,y,block_size);
+			unsolid_tile = NewBlock();
 			tiles.add(unsolid_tile);
 		}
 	}

@@ -5,8 +5,10 @@ import java.awt.Graphics2D;
 
 public class Block {
 	
-	private int x, y, size;
+	@SuppressWarnings("unused")
 	private boolean solid = false;
+	private int x, y, size;
+	private Color color = Color.darkGray;
 	
 	public Block(int x, int y, int size) {
 		this.x = x;
@@ -27,8 +29,13 @@ public class Block {
 	}
 	
 	public void render(Graphics2D g) {
-		g.setColor(Color.darkGray);
+		g.setColor(getColor());
 		g.fillRect(x, y, size, size);
+	}
+	
+	public void setCoord(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getX() {
@@ -43,6 +50,14 @@ public class Block {
 	
 	public void solidificate() {
 		solid = true;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 }

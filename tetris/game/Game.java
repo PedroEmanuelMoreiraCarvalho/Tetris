@@ -86,11 +86,17 @@ public class Game extends JPanel implements KeyListener{
 		}else if(key == KeyEvent.VK_LEFT) {
 			canvas.getUnsolidTile().left(0, canvas.getSolidBlocks());
 		}
+		else if(key == KeyEvent.VK_DOWN) {
+			timer /= 4;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_DOWN) {
+			timer *= 4;
+		}
 	}
 }
 

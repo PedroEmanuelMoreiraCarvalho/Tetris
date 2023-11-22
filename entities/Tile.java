@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Tile {
 	
-	protected int x, y,size;
+	protected int x, y, size, rotations = 0;
 	protected Block[] blocks = new Block[4];
 	protected boolean isFalling = true, isSolid = false;
 	
@@ -28,6 +28,7 @@ public class Tile {
 		for(Block solid: solid_blocks) {
 			for(int i = 0; i < blocks.length; i++){	
 				if(blocks[i].getY() >= solid.getY() &&
+					blocks[i].getY() < solid.getY() + size &&
 					blocks[i].getX() + size >= solid.getX() &&
 					blocks[i].getX() + size < solid.getX() + solid.getSize()
 				) return;
@@ -46,6 +47,7 @@ public class Tile {
 		for(Block solid: solid_blocks) {
 			for(int i = 0; i < blocks.length; i++){	
 				if(blocks[i].getY() >= solid.getY() &&
+					blocks[i].getY() < solid.getY() + size &&
 					blocks[i].getX() - size >= solid.getX() &&
 					blocks[i].getX() - size < solid.getX() + solid.getSize()
 				) return;
@@ -64,6 +66,7 @@ public class Tile {
 		for(Block solid: solid_blocks) {
 			for(int i = 0; i < blocks.length; i++){	
 				if(blocks[i].getY() + size >= solid.getY() &&
+					blocks[i].getY() < solid.getY() + size &&
 					blocks[i].getX() >= solid.getX() &&
 					blocks[i].getX() < solid.getX() + solid.getSize()
 				) {
@@ -85,6 +88,15 @@ public class Tile {
 			blocks[i].drown();
 		}
 	}
+	
+	public void rotate(ArrayList<Block> solid_blocks) {
+		//verif()
+		rotations++;
+		rotateBlocks(rotations);
+		rotations %= 4;
+	}
+	
+	protected void rotateBlocks(int rotations) {}
 	
 	public void solidificate() {
 		for(int i = 0; i < blocks.length; i++) {

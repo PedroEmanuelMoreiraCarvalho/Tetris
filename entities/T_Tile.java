@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+
 public class T_Tile extends Tile{
 	
 	public T_Tile(int x, int y, int size) {
@@ -11,5 +13,6 @@ public class T_Tile extends Tile{
            new Block(x + 2 * size , y + size ,size)
 		}; 
 		setBlocks(blocks);
+		for(int i = 0; i < blocks.length; i++) blocks[i].setColor(Color.blue);
 	}
 }
