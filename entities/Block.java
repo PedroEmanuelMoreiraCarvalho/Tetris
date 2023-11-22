@@ -6,11 +6,20 @@ import java.awt.Graphics2D;
 public class Block {
 	
 	private int x, y, size;
+	private boolean solid = false;
 	
 	public Block(int x, int y, int size) {
 		this.x = x;
 		this.y = y;
 		this.size = size;
+	}
+	
+	public void right() {
+		x += size;
+	}
+	
+	public void left() {
+		x -= size;
 	}
 	
 	public void drown() {
@@ -27,6 +36,13 @@ public class Block {
 	}
 	public int getY() {
 		return y;
+	}
+	public int getSize() {
+		return size;
+	}
+	
+	public void solidificate() {
+		solid = true;
 	}
 	
 }

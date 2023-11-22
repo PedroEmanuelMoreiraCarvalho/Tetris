@@ -3,15 +3,17 @@ package tetris.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import entities.Canvas;
 
-public class Game extends JPanel{
+public class Game extends JPanel implements KeyListener{
 	
-	private int WIDTH = 300, HEIGHT = 500, timer = 800;
+	private int WIDTH = 350, HEIGHT = 600, timer = 10; //simer_set = 40
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame = new JFrame("Tetris");
 
@@ -23,6 +25,7 @@ public class Game extends JPanel{
 		frame.setSize(game.getWidth(), game.getHeight());
 		
 		frame.add(game);
+		frame.addKeyListener(game);
 		
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -33,7 +36,7 @@ public class Game extends JPanel{
 	}
 	
 	public void tick() {
-		canvas.tick();
+		canvas.tick(timer);
 	}
 	
 	public void paint(Graphics g) {
@@ -50,7 +53,7 @@ public class Game extends JPanel{
 				while(true) {
 					game.tick();
 					game.repaint();
-					game.wait(game.getTimer());
+					game.wait(10);
 				}
 			}
 		} catch (InterruptedException e) {
@@ -70,7 +73,26 @@ public class Game extends JPanel{
 		return timer;
 	}
 
-	public void setTimer(int timer) {
-		this.timer = timer;
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_RIGHT) {
+			canvas.getUnsolidTile().right(canvas.getWidht(), canvas.getSolidBlocks());
+		}else if(key == KeyEvent.VK_LEFT) {
+			canvas.getUnsolidTile().left(0, canvas.getSolidBlocks());
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 }
+
+
+//by Ierokirykas
