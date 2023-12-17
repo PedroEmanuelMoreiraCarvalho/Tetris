@@ -13,6 +13,6 @@ public class O_Tile extends Tile{
            new Block(x + size , y + size ,size)
 		}; 
 		setBlocks(blocks);
-		for(int i = 0; i < blocks.length; i++) blocks[i].setColor(Color.yellow);
+		for(int i = 0; i < blocks.length; i++) blocks[i].setColor(new Color(1f,1f,0f,.5f ));
 	}
 }

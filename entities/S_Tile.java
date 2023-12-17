@@ -13,17 +13,25 @@ public class S_Tile extends Tile{
            new Block(x + size , y + size ,size)
 		}; 
 		setBlocks(blocks);
-		for(int i = 0; i < blocks.length; i++) blocks[i].setColor(Color.green);
+		for(int i = 0; i < blocks.length; i++) blocks[i].setColor(new Color(0f,0f,1f,.5f ));
 	}
 	
 	@Override
 	protected void rotateBlocks(int rotations){
-		switch(rotations) {
+		switch(rotations % 2) {
 		case 1:
-			blocks[0] .setCoord(blocks[0].getX() - size , blocks[0].getY() - size);
-			blocks[1].setCoord(blocks[1].getX() - 2 * size , blocks[1].getY()); // + size  - size);
-			blocks[2] .setCoord(blocks[2].getX() + size, blocks[2].getY()  - size);
-			blocks[3] .setCoord(blocks[3].getX(), blocks[3].getY());
+			blocks[0].setCoord(blocks[0].getX() - size , blocks[0].getY());
+			blocks[1].setCoord(blocks[1].getX() - 2 * size , blocks[1].getY() + size); // + size  - size);
+			blocks[2].setCoord(blocks[2].getX() + size, blocks[2].getY());
+			blocks[3].setCoord(blocks[3].getX(), blocks[3].getY() + size);
+			break;
+		case 0:
+			blocks[0].setCoord(blocks[0].getX() + size, blocks[0].getY());
+			blocks[1].setCoord(blocks[1].getX() + 2 * size, blocks[1].getY() - size); // + size  - size);
+			blocks[2].setCoord(blocks[2].getX() - size, blocks[2].getY());
+			blocks[3].setCoord(blocks[3].getX(), blocks[3].getY() - size);
+			break;
+		default:
 			break;
 		}
 	}

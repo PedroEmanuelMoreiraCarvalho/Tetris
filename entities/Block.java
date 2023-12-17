@@ -2,11 +2,16 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Block {
 	
 	@SuppressWarnings("unused")
 	private boolean solid = false;
+	private Image tile;
 	private int x, y, size;
 	private Color color = Color.darkGray;
 	
@@ -14,6 +19,11 @@ public class Block {
 		this.x = x;
 		this.y = y;
 		this.size = size;
+		try {
+			this.tile = ImageIO.read(this.getClass().getResource("/images/mine.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 	}
 	
 	public void right() {
@@ -29,6 +39,7 @@ public class Block {
 	}
 	
 	public void render(Graphics2D g) {
+		g.drawImage(tile,x,y,size,size,null);
 		g.setColor(getColor());
 		g.fillRect(x, y, size, size);
 	}
