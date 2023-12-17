@@ -13,9 +13,10 @@ import entities.Canvas;
 
 public class Game extends JPanel implements KeyListener{
 	
-	private int WIDTH = 350, HEIGHT = 600, timer = 10; //simer_set = 40
+	private int WIDTH = 350, HEIGHT = 700, timer = 30; //simer_set = 40
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame = new JFrame("Tetris");
+	private boolean speed_game = false;
 
 	Canvas canvas = new Canvas(20,50);
 
@@ -36,7 +37,13 @@ public class Game extends JPanel implements KeyListener{
 	}
 	
 	public void tick() {
-		canvas.tick(timer);
+		int time_speed;
+		if(speed_game) {
+			time_speed = timer / 4;
+		}else {
+			time_speed = timer;
+		}
+		canvas.tick(time_speed);
 	}
 	
 	public void paint(Graphics g) {
@@ -72,6 +79,14 @@ public class Game extends JPanel implements KeyListener{
 	public int getTimer() {
 		return timer;
 	}
+	
+	public void increaseSpeed() {
+		speed_game = true; 
+	}
+	
+	public void decreaseSpeed() {
+		speed_game = false; 
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -84,10 +99,11 @@ public class Game extends JPanel implements KeyListener{
 		if(key == KeyEvent.VK_RIGHT) {
 			canvas.getUnsolidTile().right(canvas.getWidht(), canvas.getSolidBlocks());
 		}else if(key == KeyEvent.VK_LEFT) {
-			canvas.getUnsolidTile().left(0, canvas.getSolidBlocks());
-		}
-		else if(key == KeyEvent.VK_DOWN) {
-			timer /= 4;
+			canvas.getUnsolidTile().left(canvas.getX(), canvas.getSolidBlocks());
+		}else if(key == KeyEvent.VK_DOWN) {
+			increaseSpeed();
+		}else if(key == KeyEvent.VK_SPACE) {
+			canvas.setRotate(true);
 		}
 	}
 
@@ -95,7 +111,7 @@ public class Game extends JPanel implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_DOWN) {
-			timer *= 4;
+			decreaseSpeed();
 		}
 	}
 }
